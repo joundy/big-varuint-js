@@ -23,7 +23,7 @@ async function main() {
     console.log(examples[i].toVaruint());
   }
 
-  // decode then encode
+  // encode then decode
   for (let i = 0; i < examples.length; i += 1) {
     console.log(examples[i].toString());
     if (examples[i] instanceof U8) {
