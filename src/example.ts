@@ -58,6 +58,9 @@ async function main() {
   ]);
   const decoded = U128.fromVaruint(buff).toValue();
   console.log(decoded);
+
+  const u32 = new U32(32n)
+  console.log(JSON.stringify(u32))
 }
 
 main();

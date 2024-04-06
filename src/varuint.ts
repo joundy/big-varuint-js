@@ -33,6 +33,10 @@ export abstract class Varuint {
     return this.n.toString();
   }
 
+  toJSON(): string {
+    return this.n.toString();
+  }
+
   toValue(): bigint {
     return this.n;
   }
