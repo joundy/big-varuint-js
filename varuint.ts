@@ -26,27 +26,30 @@ export abstract class Varuint {
   }
 
   toVaruint(): Buffer {
-    return encodeBigVarint(this.n);
+    return encodeBigVaruint(this.n);
   }
 
   toString(): string {
     return this.n.toString();
   }
+
+  toValue(): bigint {
+    return this.n;
+  }
 }
 
-function encodeBigVarint(n: bigint) {
+export function encodeBigVaruint(n: bigint) {
   if (n < 0n) {
     throw new Error("Value must be positive");
+  }
+  if (n > U128_MAX_NUMBER) {
+    throw new Error(`Can't encode value more than ${U128_MAX_NUMBER}`);
   }
 
   const buff = Buffer.alloc(BUFFER_MAX_LENGTH);
 
   let i = 0;
   while (n >> 7n > 0) {
-    if (i >= BUFFER_MAX_LENGTH) {
-      throw new Error("Buff length more than limit");
-    }
-
     buff[i] = Number((n & 0b1111_1111n) | 0b1000_0000n);
     n >>= 7n;
     i += 1;
@@ -62,7 +65,7 @@ export function decodeBigVaruint(buff: Buffer) {
     (buff.length === BUFFER_MAX_LENGTH && buff[buff.length - 1] > 3)
   ) {
     throw new Error(
-      `Can't process value more than ${U128_MAX_NUMBER}, buffer overflow`,
+      `Can't decode value more than ${U128_MAX_NUMBER}, buffer overflow`,
     );
   }
 
@@ -74,6 +77,7 @@ export function decodeBigVaruint(buff: Buffer) {
   }
 
   if (finalValue < 0n) {
+    // this can't be happen, just for safety
     throw new Error("Value is minus, something wrong");
   }
 

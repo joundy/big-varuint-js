@@ -1,4 +1,5 @@
 import {
+  BUFFER_MAX_LENGTH,
   U128_MAX_NUMBER,
   U16_MAX_NUMBER,
   U32_MAX_NUMBER,
@@ -47,6 +48,17 @@ async function main() {
       console.log(U128.fromVaruint(buff).toString());
     }
   }
+
+  const value = U128_MAX_NUMBER;
+  const encoded = new U128(value).toVaruint();
+  console.log({ encoded });
+
+  const buff = Buffer.from([
+    255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    255, 255, 255, 3,
+  ]);
+  const decoded = U128.fromVaruint(buff).toValue();
+  console.log(decoded);
 }
 
 main();
