@@ -2,6 +2,11 @@
 Encode and decode varuint variables flawlessly. It supported uint checker for `u8`, `u16`, `u32`, `u64`, `u128`, the uint  is just a wrapper of `bigint` value.
 *if you want to use this library on production please dwyor, really open to any contribution.
 
+## Install
+```
+npm install big-varuint
+```
+
 ## Example u128
 ### Encode
 ```
