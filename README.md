@@ -4,7 +4,7 @@ Encode and decode varuint variables flawlessly. It supported uint checker for `u
 
 ## Install
 ```
-npm install big-varuint
+npm install big-varuint-js
 ```
 
 ## Example u128
